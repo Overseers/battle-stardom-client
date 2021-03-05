@@ -13,11 +13,6 @@ function Apollo(props: Props) {
     const {
         children
     } = props;
-    const auth = useAuth();
-
-    if (auth.token() === '') {
-        return <>children</>;
-    }
 
     return (
         <ApolloProvider client={ApolloContext()}>
@@ -39,9 +34,10 @@ const ApolloContext = () => {
         uri: 'ws://localhost:8080/api/subscriptions',
         options: {
             reconnect: true,
+
             connectionParams: {
                 authorization: auth.token()
-            }
+            },
         }
     });
 
