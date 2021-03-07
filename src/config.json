@@ -1,0 +1,28 @@
+{
+	"pages": [
+		{
+			"id": "HOME",
+			"displayName": "Home"
+		},
+		{
+			"id": "BATTLE",
+			"displayName": "Battle"
+		},
+		{
+			"id": "PVP",
+			"displayName": "PvP"
+		},
+		{
+			"id": "SHOP",
+			"displayName": "Shop"
+		},
+		{
+			"id": "TRADER",
+			"displayName": "Trader"
+		},
+		{
+			"id": "CHARACTER",
+			"displayName": "Character"
+		}
+	]
+}

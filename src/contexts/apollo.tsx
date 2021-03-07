@@ -3,63 +3,63 @@ import { ApolloClient, ApolloProvider, InMemoryCache, split, HttpLink } from '@a
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { useAuth } from './auth';
-import Firebase from '../firebase';
+// import Firebase from '../firebase';
 
 interface Props {
     children: React.ReactNode;
 }
 
 function Apollo(props: Props) {
-    const {
-        children
-    } = props;
+	const {
+		children
+	} = props;
 
-    return (
-        <ApolloProvider client={ApolloContext()}>
-            {
-                children
-            }
-        </ApolloProvider>
-    );
+	return (
+		<ApolloProvider client={ApolloContext()}>
+			{
+				children
+			}
+		</ApolloProvider>
+	);
 }
 
 const ApolloContext = () => {
-    const auth = useAuth();
+	const auth = useAuth();
 
-    const httpLink = new HttpLink({
-        uri: 'http://localhost:8080/api/graphql'
-    });
+	const httpLink = new HttpLink({
+		uri: 'http://localhost:8080/api/graphql'
+	});
 
-    const wsLink = new WebSocketLink({
-        uri: 'ws://localhost:8080/api/subscriptions',
-        options: {
-            reconnect: true,
+	const wsLink = new WebSocketLink({
+		uri: 'ws://localhost:8080/api/subscriptions',
+		options: {
+			reconnect: true,
 
-            connectionParams: {
-                authorization: auth.token()
-            },
-        }
-    });
+			connectionParams: {
+				authorization: auth.token()
+			}
+		}
+	});
 
-    const splitLink = split(
-        ({ query }) => {
-            const definition = getMainDefinition(query);
-            return (
-                definition.kind === 'OperationDefinition' &&
+	const splitLink = split(
+		({ query }) => {
+			const definition = getMainDefinition(query);
+			return (
+				definition.kind === 'OperationDefinition' &&
                 definition.operation === 'subscription'
-            );
-        },
-        wsLink,
-        httpLink
-    );
+			);
+		},
+		wsLink,
+		httpLink
+	);
 
-    const client = new ApolloClient({
-        // uri: 'http://localhost:8080/api/graphql',
-        cache: new InMemoryCache(),
-        link: splitLink
-    });
+	const client = new ApolloClient({
+		// uri: 'http://localhost:8080/api/graphql',
+		cache: new InMemoryCache(),
+		link: splitLink
+	});
 
-    return client;
+	return client;
 };
 
 export default Apollo;

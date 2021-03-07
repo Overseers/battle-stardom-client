@@ -3,13 +3,13 @@ import React from 'react';
 interface Props { }
 
 function Header(props: Props) {
-    const { } = props;
+	const { } = props;
 
-    return (
-        <header>
+	return (
+		<header>
 
-        </header>
-    );
+		</header>
+	);
 }
 
 export default Header;

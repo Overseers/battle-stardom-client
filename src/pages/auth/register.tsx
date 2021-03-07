@@ -3,13 +3,13 @@ import React from 'react';
 interface Props { }
 
 function Register(props: Props) {
-    const { } = props;
+	const { } = props;
 
-    return (
-        <div>
+	return (
+		<div>
 
-        </div>
-    );
+		</div>
+	);
 }
 
 export default Register;
