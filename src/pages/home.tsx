@@ -1,6 +1,8 @@
 import { gql, useQuery, useSubscription } from '@apollo/client';
 import React, { useEffect } from 'react';
 import LoadScreen from '../components/load-screen';
+import { useLocation } from 'react-router-dom';
+// import history from '../history';
 
 interface Props { }
 
@@ -20,16 +22,14 @@ function Home(props: Props) {
         shouldResubscribe: true
     });
 
+    const location = useLocation();
+
     const data = subscriptionPlayerCount.loading ? queryPlayerCount.data : subscriptionPlayerCount.data;
+    console.log(location.pathname);
 
     return (
         <div>
-            {
-                !queryPlayerCount.loading && data && <>{JSON.stringify(data)}</>
-            }
-            Home
-            asdfasdfasdfasdfasdfasd
-            {/* <LoadScreen text='I am loading something' /> */}
+            home
         </div>
     );
 }

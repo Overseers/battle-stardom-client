@@ -6,17 +6,20 @@ import reportWebVitals from './reportWebVitals';
 import Global from './contexts/global';
 import AuthContext from './contexts/auth';
 import Apollo from './contexts/apollo';
+import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
     <React.StrictMode>
-        <AuthContext>
-            <Apollo>
-                <Global>
-                    <App />
-                </Global>
-            </Apollo>
-        </AuthContext>
+        <BrowserRouter>
+            <AuthContext>
+                <Apollo>
+                    <Global>
+                        <App />
+                    </Global>
+                </Apollo>
+            </AuthContext>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

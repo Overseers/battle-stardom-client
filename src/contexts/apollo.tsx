@@ -13,9 +13,10 @@ function Apollo(props: Props) {
     const {
         children
     } = props;
+    const test = ApolloContext();
 
     return (
-        <ApolloProvider client={ApolloContext()}>
+        <ApolloProvider client={test}>
             {
                 children
             }

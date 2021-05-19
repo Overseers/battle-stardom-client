@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Firebase from '../firebase';
 import Cookies from 'universal-cookie';
-import history from '../history';
+import { useHistory } from 'react-router-dom';
 
 const cookies = new Cookies();
 
@@ -56,10 +56,11 @@ const ContextData = () => {
     const [token, setToken] = useState('');
     console.log(cookies.get('willAutoSignIn'));
     const isSignedIn = !!cookies.get('willAutoSignIn');
+    const history = useHistory();
 
     const signOut = () => {
         Firebase.auth().signOut();
-        history.push('/login');
+        history.replace('/login');
     };
 
     useEffect(() => {
@@ -71,11 +72,13 @@ const ContextData = () => {
     useEffect(() => {
         if (isLoggedIn) {
             Firebase?.auth()?.currentUser?.getIdToken?.().then(setToken).catch(error => console.error('Failed to grab token'));
-            history.push('/');
+            history.replace('/');
+        } else {
+            history.replace('/login');
         }
 
         cookies.set('willAutoSignIn', isLoggedIn);
-    }, [isLoggedIn]);
+    }, [isLoggedIn, history.replace]);
 
     return {
         isLoggedIn,

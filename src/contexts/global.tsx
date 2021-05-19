@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import Firebase from '../firebase';
 import Cookies from 'universal-cookie';
-import history from '../history';
+import { useHistory } from 'react-router-dom';
+// import history from '../history';
 
 const cookies = new Cookies();
 
@@ -49,6 +50,7 @@ const ContextData = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     console.log(cookies.get('willAutoSignIn'));
     const isSignedIn = !!cookies.get('willAutoSignIn');
+    const history = useHistory();
 
     const signOut = () => {
         Firebase.auth().signOut();
@@ -62,11 +64,13 @@ const ContextData = () => {
     }, [true]);
 
     useEffect(() => {
+        cookies.set('willAutoSignIn', isLoggedIn);
         if (isLoggedIn) {
-            history.push('/');
+            return () => {
+                history.push('/');
+            };
         }
 
-        cookies.set('willAutoSignIn', isLoggedIn);
     }, [isLoggedIn]);
 
     return {
