@@ -10,6 +10,7 @@ import Logout from './pages/auth/logout';
 import { useAuth } from './contexts/auth';
 import LoadScreen from './components/load-screen';
 import Battle from './pages/battle';
+import BattleContext from './contexts/battle';
 
 function App() {
     const global = useGlobal();
@@ -35,7 +36,9 @@ function App() {
                     path='/battle'
                     exact
                 >
-                    <Battle />
+                    <BattleContext>
+                        <Battle />
+                    </BattleContext>
                 </Route>
                 <Route
                     path='/register'

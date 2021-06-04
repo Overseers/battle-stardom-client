@@ -6,6 +6,8 @@ import { useLocation } from 'react-router-dom';
 
 interface Props { }
 
+let battleHistory: any[] = [];
+
 function Home(props: Props) {
     const { } = props;
     const queryPlayerCount = useQuery(gql`
@@ -13,18 +15,10 @@ function Home(props: Props) {
         playerCount
     }
     `);
-    const subscriptionPlayerCount = useSubscription(
-        gql`
-        subscription {
-            deltaPlayerCount
-        }
-        `, {
-        shouldResubscribe: true
-    });
+
 
     const location = useLocation();
 
-    const data = subscriptionPlayerCount.loading ? queryPlayerCount.data : subscriptionPlayerCount.data;
     console.log(location.pathname);
 
     return (
