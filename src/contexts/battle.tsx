@@ -8,14 +8,35 @@ interface Context {
 export interface BattleStep {
     defenderAttack?: Step;
     challengerAttack?: Step;
+    challengerInfo: GearedEntity;
+    defenderInfo: GearedEntity;
     __typename: string;
 }
 
-interface Step {
-    damageRoll: number;
-    damageTaken: number;
+export interface GearedEntity {
+    mainHand: {
+        description: string;
+        attackSpeed: number;
+        name: string;
+        maxDamage: number;
+        minDamage: number;
+        image: string;
+        __typename: string;
+    };
+    health: string;
+    maxHealth: string;
+    name: string;
+    attackSpeed: null;
     __typename: string;
 }
+
+export interface Step {
+    damageRoll: number;
+    damageTaken: number;
+    currentHealth: number;
+    __typename: string;
+}
+
 const context = createContext<Context>({
     battleStep: undefined
 });
@@ -54,17 +75,48 @@ subscription {
     defenderAttack {
       damageRoll
       damageTaken
+      currentHealth
     }
     challengerAttack {
       damageRoll
       damageTaken
+      currentHealth
+    }
+    challengerInfo {
+      mainHand {
+        description
+        attackSpeed
+        name
+        maxDamage
+        minDamage
+        image
+      }
+      health
+      maxHealth
+      name
+      attackSpeed
+    }
+    defenderInfo {
+      mainHand {
+        description
+        attackSpeed
+        name
+        maxDamage
+        minDamage
+        image
+      }
+      health
+      maxHealth
+      name
+      attackSpeed
     }
   }
 }
         `, {
-        shouldResubscribe: true
+        shouldResubscribe: true,
+        fetchPolicy: 'network-only'
     });
-    console.log(currentBattleStep.loading);
+    console.log(currentBattleStep.data);
 
     // if (!currentBattleStep.loading && currentBattleStep.data) {
     //     console.log('test');

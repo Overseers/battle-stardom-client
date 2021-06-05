@@ -20,40 +20,42 @@ function App() {
             className='h-screen w-full bg-gray-800 lg:bg-red-300'
         >
             <Header />
-            <Switch>
-                <Route
-                    path='/'
-                    exact
-                >
-                    <Home />
-                </Route>
-                <Route
-                    path='/login'
-                >
-                    <Login />
-                </Route>
-                <Route
-                    path='/battle'
-                    exact
-                >
-                    <BattleContext>
-                        <Battle />
-                    </BattleContext>
-                </Route>
-                <Route
-                    path='/register'
-                >
-                    <Register />
-                </Route>
-                <Route
-                    path='/logout'
-                >
-                    <Logout />
-                </Route>
-                <Route
-                    render={() => <Route path="/login" />}
-                />
-            </Switch>
+            <main>
+                <Switch>
+                    <Route
+                        path='/'
+                        exact
+                    >
+                        <Home />
+                    </Route>
+                    <Route
+                        path='/login'
+                    >
+                        <Login />
+                    </Route>
+                    <Route
+                        path='/battle'
+                        exact
+                    >
+                        <BattleContext>
+                            <Battle />
+                        </BattleContext>
+                    </Route>
+                    <Route
+                        path='/register'
+                    >
+                        <Register />
+                    </Route>
+                    <Route
+                        path='/logout'
+                    >
+                        <Logout />
+                    </Route>
+                    <Route
+                        render={() => <Route path="/login" />}
+                    />
+                </Switch>
+            </main>
         </div>
     );
 }

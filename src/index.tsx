@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './tailwind.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Global from './contexts/global';
 import AuthContext from './contexts/auth';
 import Apollo from './contexts/apollo';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 
 ReactDOM.render(
